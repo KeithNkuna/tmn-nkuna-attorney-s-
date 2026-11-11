@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        /* --- CSS VARIABLES & THEME --- */
         :root {
             --navy-primary: #0F1E36;
             --navy-dark: #0A1424;
@@ -23,7 +22,6 @@
             --transition: all 0.3s ease-in-out;
         }
 
-        /* --- RESET & BASE STYLES --- */
         * {
             margin: 0;
             padding: 0;
@@ -31,9 +29,7 @@
             font-family: 'Montserrat', sans-serif;
         }
 
-        html {
-            scroll-behavior: smooth;
-        }
+        html { scroll-behavior: smooth; }
 
         body {
             background-color: var(--gray-bg);
@@ -71,10 +67,7 @@
             cursor: pointer;
         }
 
-        .brand-logo i {
-            font-size: 2rem;
-            color: var(--gold-accent);
-        }
+        .brand-logo i { font-size: 2rem; color: var(--gold-accent); }
 
         .brand-text h1 {
             font-family: 'Cinzel', serif;
@@ -98,36 +91,20 @@
             list-style: none;
         }
 
-        .nav-links a {
+        .nav-links button {
+            background: none;
+            border: none;
             color: var(--text-light);
-            text-decoration: none;
             font-weight: 500;
             font-size: 0.95rem;
-            transition: var(--transition);
-            position: relative;
-            padding: 5px 0;
             cursor: pointer;
-        }
-
-        .nav-links a:hover,
-        .nav-links a.active {
-            color: var(--gold-accent);
-        }
-
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0%;
-            height: 2px;
-            background-color: var(--gold-accent);
+            padding: 5px 0;
             transition: var(--transition);
         }
 
-        .nav-links a:hover::after,
-        .nav-links a.active::after {
-            width: 100%;
+        .nav-links button:hover,
+        .nav-links button.active {
+            color: var(--gold-accent);
         }
 
         .mobile-menu-btn {
@@ -139,22 +116,11 @@
             cursor: pointer;
         }
 
-        /* --- PAGE ROUTING SYSTEM --- */
-        .page-section {
-            display: none;
-            animation: fadeIn 0.4s ease-in-out forwards;
-        }
+        /* --- PAGES --- */
+        .page-section { display: none; }
+        .page-section.active { display: block; }
 
-        .page-section.active {
-            display: block;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* --- HERO SECTION --- */
+        /* --- HERO --- */
         .hero {
             background: linear-gradient(rgba(15, 30, 54, 0.9), rgba(10, 20, 36, 0.95)), url('https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
             color: var(--text-light);
@@ -162,17 +128,11 @@
             text-align: center;
         }
 
-        .hero-content {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
         .hero-tagline {
             font-family: 'Cinzel', serif;
             font-size: 2.5rem;
             color: var(--gold-accent);
             margin-bottom: 1.5rem;
-            line-height: 1.3;
         }
 
         .hero-subtitle {
@@ -190,403 +150,148 @@
             text-transform: uppercase;
             letter-spacing: 1px;
             border-radius: 4px;
-            text-decoration: none;
-            transition: var(--transition);
-            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
             border: none;
             cursor: pointer;
+            transition: var(--transition);
         }
 
-        .cta-btn:hover {
-            background: var(--gold-hover);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.5);
-        }
+        .cta-btn:hover { background: var(--gold-hover); }
 
-        /* --- CONTAINER & SECTION HEADINGS --- */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 5rem 2rem;
-        }
+        .container { max-width: 1200px; margin: 0 auto; padding: 4rem 2rem; }
 
-        .section-header {
-            text-align: center;
-            margin-bottom: 3.5rem;
-        }
+        .section-header { text-align: center; margin-bottom: 3rem; }
 
         .section-header h2 {
             font-family: 'Cinzel', serif;
-            font-size: 2.2rem;
+            font-size: 2rem;
             color: var(--navy-primary);
-            margin-bottom: 0.5rem;
         }
 
         .divider {
-            width: 70px;
+            width: 60px;
             height: 3px;
             background-color: var(--gold-accent);
-            margin: 0 auto 1rem;
+            margin: 0.5rem auto 1rem;
         }
 
-        .section-header p {
-            color: #666;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        /* --- PRACTICE AREAS GRID --- */
+        /* --- SERVICES GRID --- */
         .services-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 2rem;
         }
 
         .service-card {
-            background-color: var(--white);
+            background: var(--white);
+            padding: 2rem;
             border-radius: 8px;
-            padding: 2.5rem 1.8rem;
             box-shadow: var(--card-shadow);
             border-top: 4px solid var(--navy-primary);
-            transition: var(--transition);
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
         }
 
-        .service-card:hover {
-            transform: translateY(-8px);
-            border-top-color: var(--gold-accent);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.12);
-        }
+        .service-card h3 { color: var(--navy-primary); margin-bottom: 0.5rem; }
 
-        .service-icon {
-            width: 60px;
-            height: 60px;
-            background-color: rgba(15, 30, 54, 0.05);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 1.5rem;
-            color: var(--navy-primary);
-            font-size: 1.6rem;
-            transition: var(--transition);
-        }
-
-        .service-card:hover .service-icon {
-            background-color: var(--navy-primary);
-            color: var(--gold-accent);
-        }
-
-        .service-card h3 {
-            font-size: 1.25rem;
-            color: var(--navy-primary);
-            margin-bottom: 0.8rem;
-        }
-
-        .service-card p {
-            font-size: 0.92rem;
-            color: #666;
-            line-height: 1.5;
-        }
-
-        /* --- ABOUT US SECTION --- */
-        .about-layout {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            align-items: center;
-        }
-
-        .about-text h3 {
-            font-family: 'Cinzel', serif;
-            font-size: 1.8rem;
-            color: var(--navy-primary);
-            margin-bottom: 1.2rem;
-        }
-
-        .about-text p {
-            margin-bottom: 1.2rem;
-            color: #4A5568;
-            font-size: 1rem;
-        }
-
-        .feature-list {
-            list-style: none;
-            margin-top: 1.5rem;
-        }
-
-        .feature-list li {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 0.8rem;
-            font-weight: 600;
-            color: var(--navy-primary);
-        }
-
-        .feature-list i {
-            color: var(--gold-accent);
-        }
-
-        .about-image img {
-            width: 100%;
-            border-radius: 8px;
-            box-shadow: var(--card-shadow);
-            border: 4px solid var(--white);
-        }
-
-        /* --- CONTACT US SECTION --- */
+        /* --- CONTACT WRAPPER --- */
         .contact-wrapper {
             display: grid;
             grid-template-columns: 1fr 1.2fr;
-            gap: 3rem;
-            background-color: var(--white);
+            gap: 2.5rem;
+            background: var(--white);
+            border-radius: 8px;
             box-shadow: var(--card-shadow);
-            border-radius: 10px;
             overflow: hidden;
         }
 
         .contact-info-panel {
-            background-color: var(--navy-primary);
+            background: var(--navy-primary);
             color: var(--text-light);
-            padding: 3rem 2.5rem;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
+            padding: 2.5rem;
         }
 
-        .contact-info-panel h3 {
-            font-family: 'Cinzel', serif;
-            font-size: 1.6rem;
-            color: var(--gold-accent);
-            margin-bottom: 1.5rem;
-        }
+        .contact-info-panel h3 { color: var(--gold-accent); margin-bottom: 1.5rem; font-family: 'Cinzel', serif; }
 
-        .info-item {
-            display: flex;
-            align-items: flex-start;
-            gap: 15px;
-            margin-bottom: 1.8rem;
-        }
+        .info-item { margin-bottom: 1.5rem; }
+        .info-item h4 { color: var(--text-muted); font-size: 0.85rem; text-transform: uppercase; }
+        .info-item a, .info-item p { color: var(--text-light); text-decoration: none; }
 
-        .info-item i {
-            font-size: 1.3rem;
-            color: var(--gold-accent);
-            margin-top: 4px;
-        }
+        .contact-form-panel { padding: 2.5rem; }
 
-        .info-item h4 {
-            font-size: 0.95rem;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 2px;
-        }
-
-        .info-item a, .info-item p {
-            color: var(--text-light);
-            text-decoration: none;
-            font-size: 1rem;
-        }
-
-        .info-item a:hover {
-            color: var(--gold-accent);
-        }
-
-        .contact-form-panel {
-            padding: 3rem 2.5rem;
-        }
-
-        .contact-form-panel h3 {
-            font-size: 1.5rem;
-            color: var(--navy-primary);
-            margin-bottom: 1.5rem;
-        }
-
-        .form-group {
-            margin-bottom: 1.2rem;
-        }
-
-        .form-group label {
-            display: block;
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: var(--navy-primary);
-            margin-bottom: 5px;
-            text-transform: uppercase;
-        }
-
-        .form-group input,
-        .form-group select,
-        .form-group textarea {
+        .form-group { margin-bottom: 1.2rem; }
+        .form-group label { display: block; font-size: 0.85rem; font-weight: 600; color: var(--navy-primary); margin-bottom: 4px; text-transform: uppercase; }
+        .form-group input, .form-group select, .form-group textarea {
             width: 100%;
-            padding: 0.8rem 1rem;
+            padding: 0.8rem;
             border: 1px solid #CBD5E1;
             border-radius: 4px;
-            font-size: 0.95rem;
-            transition: var(--transition);
         }
 
-        .form-group input:focus,
-        .form-group select:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: var(--navy-primary);
-            box-shadow: 0 0 0 3px rgba(15, 30, 54, 0.1);
-        }
-
-        #formStatus {
-            margin-top: 1.2rem;
+        #statusBox {
+            display: none;
+            margin-top: 1rem;
             padding: 1rem;
             border-radius: 4px;
-            text-align: center;
             font-weight: 600;
-            display: none;
-        }
-
-        #formStatus.success {
-            background-color: #D1E7DD;
-            color: #0F5132;
-            border: 1px solid #BADBCC;
-            display: block;
-        }
-
-        #formStatus.error {
-            background-color: #F8D7DA;
-            color: #842029;
-            border: 1px solid #F5C2C7;
-            display: block;
-        }
-
-        /* --- MAP SECTION --- */
-        .map-container {
-            margin-top: 3rem;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: var(--card-shadow);
-            height: 350px;
-        }
-
-        .map-container iframe {
-            width: 100%;
-            height: 100%;
-            border: 0;
-        }
-
-        /* --- FOOTER --- */
-        footer {
-            background-color: var(--navy-dark);
-            color: var(--text-muted);
-            padding: 3rem 2rem 1.5rem;
-            margin-top: auto;
-            border-top: 1px solid rgba(212, 175, 55, 0.2);
-        }
-
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 1.5rem;
-            padding-bottom: 2rem;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .footer-brand h4 {
-            font-family: 'Cinzel', serif;
-            color: var(--text-light);
-            font-size: 1.2rem;
-        }
-
-        .footer-bottom {
-            max-width: 1200px;
-            margin: 1.5rem auto 0;
             text-align: center;
-            font-size: 0.85rem;
         }
 
-        /* --- RESPONSIVE STYLES --- */
-        @media (max-width: 900px) {
-            .about-layout,
-            .contact-wrapper {
-                grid-template-columns: 1fr;
-            }
-
-            .hero-tagline {
-                font-size: 1.9rem;
-            }
-        }
-
+        /* --- RESPONSIVE --- */
         @media (max-width: 768px) {
+            .contact-wrapper { grid-template-columns: 1fr; }
             .nav-links {
                 display: none;
                 flex-direction: column;
                 position: absolute;
-                top: 100%;
-                left: 0;
-                width: 100%;
-                background-color: var(--navy-dark);
+                top: 100%; left: 0; width: 100%;
+                background: var(--navy-dark);
                 padding: 1.5rem;
-                gap: 1.2rem;
-                box-shadow: 0 10px 10px rgba(0,0,0,0.3);
             }
+            .nav-links.show { display: flex; }
+            .mobile-menu-btn { display: block; }
+        }
 
-            .nav-links.show {
-                display: flex;
-            }
-
-            .mobile-menu-btn {
-                display: block;
-            }
-
-            .hero {
-                padding: 4rem 1.5rem;
-            }
-
-            .container {
-                padding: 3rem 1.5rem;
-            }
+        footer {
+            background: var(--navy-dark);
+            color: var(--text-muted);
+            text-align: center;
+            padding: 2rem;
+            margin-top: auto;
         }
     </style>
 </head>
 <body>
 
-    <!-- HEADER & NAVIGATION -->
+    <!-- NAVIGATION -->
     <header>
         <div class="nav-container">
-            <a class="brand-logo" data-target="home">
+            <div class="brand-logo" onclick="switchTab('home')">
                 <i class="fa-solid fa-scale-balanced"></i>
                 <div class="brand-text">
                     <h1>TMN NKUNA</h1>
                     <span>Attorneys</span>
                 </div>
-            </a>
+            </div>
             
-            <button class="mobile-menu-btn" id="menuToggleBtn" aria-label="Toggle Navigation">
+            <button class="mobile-menu-btn" onclick="toggleMobileNav()">
                 <i class="fa-solid fa-bars"></i>
             </button>
 
-            <ul class="nav-links" id="navLinks">
-                <li><a data-target="home" class="active" id="nav-home">Home</a></li>
-                <li><a data-target="about" id="nav-about">About Us</a></li>
-                <li><a data-target="services" id="nav-services">Practice Areas</a></li>
-                <li><a data-target="contact" id="nav-contact">Contact Us</a></li>
+            <ul class="nav-links" id="navMenu">
+                <li><button id="btn-home" class="active" onclick="switchTab('home')">Home</button></li>
+                <li><button id="btn-about" onclick="switchTab('about')">About Us</button></li>
+                <li><button id="btn-services" onclick="switchTab('services')">Practice Areas</button></li>
+                <li><button id="btn-contact" onclick="switchTab('contact')">Contact Us</button></li>
             </ul>
         </div>
     </header>
 
     <main>
-        <!-- ==================== HOME ==================== -->
-        <section id="home" class="page-section active">
+        <!-- PAGE 1: HOME -->
+        <section id="page-home" class="page-section active">
             <div class="hero">
                 <div class="hero-content">
                     <h2 class="hero-tagline">Fighting for your justice, every step of the way.</h2>
-                    <p class="hero-subtitle">Dedicated legal representation in Centurion. Specialized in RAF, Personal Injury, Family Law, and Civil Litigation.</p>
-                    <button class="cta-btn nav-trigger" data-target="contact">Schedule Consultation</button>
+                    <p class="hero-subtitle">Dedicated legal representation in Centurion.</p>
+                    <button class="cta-btn" onclick="switchTab('contact')">Schedule Consultation</button>
                 </div>
             </div>
 
@@ -594,353 +299,186 @@
                 <div class="section-header">
                     <h2>Our Core Specialties</h2>
                     <div class="divider"></div>
-                    <p>Comprehensive legal services tailored to protect your rights and deliver results.</p>
                 </div>
 
                 <div class="services-grid">
                     <div class="service-card">
-                        <div class="service-icon"><i class="fa-solid fa-car-burst"></i></div>
                         <h3>Road Accident Fund</h3>
-                        <p>Expert legal support for road accident victims seeking compensation from the RAF.</p>
+                        <p>Legal support for road accident victims seeking RAF compensation.</p>
                     </div>
-
                     <div class="service-card">
-                        <div class="service-icon"><i class="fa-solid fa-user-nurse"></i></div>
                         <h3>Medical Negligence</h3>
-                        <p>Holding healthcare providers accountable for malpractice and injury claims.</p>
+                        <p>Holding healthcare providers accountable for injury claims.</p>
                     </div>
-
                     <div class="service-card">
-                        <div class="service-icon"><i class="fa-solid fa-handcuffs"></i></div>
                         <h3>Unlawful Arrest</h3>
-                        <p>Protecting your constitutional rights against wrongful arrest and police misconduct.</p>
+                        <p>Protecting rights against police misconduct and wrongful arrest.</p>
                     </div>
-
                     <div class="service-card">
-                        <div class="service-icon"><i class="fa-solid fa-gavel"></i></div>
                         <h3>Civil Litigation</h3>
-                        <p>Strong representation in high-stakes dispute resolutions and court litigation.</p>
+                        <p>Strong courtroom representation in legal disputes.</p>
                     </div>
-                </div>
-
-                <div style="text-align: center; margin-top: 3rem;">
-                    <button class="cta-btn nav-trigger" data-target="services">View All Services</button>
                 </div>
             </div>
         </section>
 
-        <!-- ==================== ABOUT US ==================== -->
-        <section id="about" class="page-section">
+        <!-- PAGE 2: ABOUT US -->
+        <section id="page-about" class="page-section">
             <div class="container">
                 <div class="section-header">
                     <h2>About TMN Nkuna Attorneys</h2>
                     <div class="divider"></div>
-                    <p>Learn more about our practice, values, and commitment to justice in Centurion.</p>
                 </div>
-
-                <div class="about-layout">
-                    <div class="about-text">
-                        <h3>Committed to Legal Excellence & Integrity</h3>
-                        <div class="divider" style="margin: 0 0 1.5rem 0;"></div>
-                        <p>TMN Nkuna Attorneys is a dynamic legal practice based in Die Hoewes, Centurion. Built on a foundation of legal precision and client dedication, we advocate fiercely for individuals and businesses across South Africa.</p>
-                        <p>We understand that navigating legal challenges can be stressful. Our approach centers on clear communication, strategic representation, and relentless advocacy for your rights.</p>
-                        
-                        <ul class="feature-list">
-                            <li><i class="fa-solid fa-circle-check"></i> Client-Centric Legal Strategy</li>
-                            <li><i class="fa-solid fa-circle-check"></i> Experienced Courtroom Advocacy</li>
-                            <li><i class="fa-solid fa-circle-check"></i> Transparent & Direct Communication</li>
-                        </ul>
-                    </div>
-                    <div class="about-image">
-                        <img src="https://images.unsplash.com/photo-1453728013993-6d66e9c9123a?auto=format&fit=crop&w=800&q=80" alt="Legal Books and Gavel">
-                    </div>
-                </div>
+                <p style="text-align: center; max-width: 800px; margin: 0 auto; font-size: 1.1rem;">
+                    TMN Nkuna Attorneys is a dynamic legal practice based in Die Hoewes, Centurion. Built on legal precision and client dedication, we advocate fiercely for individuals and businesses across South Africa.
+                </p>
             </div>
         </section>
 
-        <!-- ==================== PRACTICE AREAS ==================== -->
-        <section id="services" class="page-section">
+        <!-- PAGE 3: PRACTICE AREAS -->
+        <section id="page-services" class="page-section">
             <div class="container">
                 <div class="section-header">
-                    <h2>Full Practice Areas</h2>
+                    <h2>Practice Areas</h2>
                     <div class="divider"></div>
-                    <p>We provide comprehensive legal solutions across a wide spectrum of practice fields.</p>
                 </div>
 
                 <div class="services-grid">
-                    <div class="service-card">
-                        <div class="service-icon"><i class="fa-solid fa-car-burst"></i></div>
-                        <h3>Road Accident Fund (RAF)</h3>
-                        <p>Assisting victims of vehicle accidents to claim medical expenses, loss of income, and general damages.</p>
-                    </div>
-
-                    <div class="service-card">
-                        <div class="service-icon"><i class="fa-solid fa-user-nurse"></i></div>
-                        <h3>Medical Negligence</h3>
-                        <p>Filing claims for injuries resulting from hospital errors, surgical mistakes, or misdiagnosis.</p>
-                    </div>
-
-                    <div class="service-card">
-                        <div class="service-icon"><i class="fa-solid fa-handcuffs"></i></div>
-                        <h3>Unlawful Arrest Matters</h3>
-                        <p>Seeking justice and financial compensation for wrongful detention by law enforcement authorities.</p>
-                    </div>
-
-                    <div class="service-card">
-                        <div class="service-icon"><i class="fa-solid fa-gavel"></i></div>
-                        <h3>Civil Litigation</h3>
-                        <p>Managing contractual disputes, debt recovery, property claims, and commercial litigation matters.</p>
-                    </div>
-
-                    <div class="service-card">
-                        <div class="service-icon"><i class="fa-solid fa-shield-halved"></i></div>
-                        <h3>Criminal Matters</h3>
-                        <p>Providing formal bail applications and trial defense for various criminal offenses.</p>
-                    </div>
-
-                    <div class="service-card">
-                        <div class="service-icon"><i class="fa-solid fa-people-roof"></i></div>
-                        <h3>Family Law (Divorce & Maintenance)</h3>
-                        <p>Handling contested/uncontested divorces, child custody disputes, and maintenance claims with sensitivity.</p>
-                    </div>
-
-                    <div class="service-card">
-                        <div class="service-icon"><i class="fa-solid fa-scroll"></i></div>
-                        <h3>Deceased Estates</h3>
-                        <p>Wills drafting, estate planning, and estate administration through the Master of the High Court.</p>
-                    </div>
-
-                    <div class="service-card">
-                        <div class="service-icon"><i class="fa-solid fa-briefcase"></i></div>
-                        <h3>Labour Matters</h3>
-                        <p>Representing employers and employees in CCMA referrals, unfair dismissal, and workplace disputes.</p>
-                    </div>
+                    <div class="service-card"><h3>Road Accident Fund (RAF)</h3><p>Assisting victims with medical claims and general damages.</p></div>
+                    <div class="service-card"><h3>Medical Negligence</h3><p>Claims for surgical errors and hospital malpractice.</p></div>
+                    <div class="service-card"><h3>Unlawful Arrest</h3><p>Financial compensation for wrongful detention.</p></div>
+                    <div class="service-card"><h3>Civil Litigation</h3><p>Contractual disputes, debt recovery, and property claims.</p></div>
+                    <div class="service-card"><h3>Criminal Matters</h3><p>Bail applications and trial defense.</p></div>
+                    <div class="service-card"><h3>Family Law</h3><p>Divorces, child custody, and maintenance claims.</p></div>
                 </div>
             </div>
         </section>
 
-        <!-- ==================== CONTACT US ==================== -->
-        <section id="contact" class="page-section">
+        <!-- PAGE 4: CONTACT US -->
+        <section id="page-contact" class="page-section">
             <div class="container">
                 <div class="section-header">
                     <h2>Contact Our Office</h2>
                     <div class="divider"></div>
-                    <p>Get in touch with us to discuss your legal matter today.</p>
                 </div>
 
                 <div class="contact-wrapper">
-                    <!-- Left: Contact Details -->
                     <div class="contact-info-panel">
-                        <div>
-                            <h3>Office Location</h3>
-                            
-                            <div class="info-item">
-                                <i class="fa-solid fa-location-dot"></i>
-                                <div>
-                                    <h4>Address</h4>
-                                    <p>245 Basden Avenue, Die Hoewes<br>Centurion, 0163</p>
-                                </div>
-                            </div>
-
-                            <div class="info-item">
-                                <i class="fa-solid fa-phone"></i>
-                                <div>
-                                    <h4>Phone / Call</h4>
-                                    <p><a href="tel:0767173339">076 717 3339</a></p>
-                                </div>
-                            </div>
-
-                            <div class="info-item">
-                                <i class="fa-solid fa-envelope"></i>
-                                <div>
-                                    <h4>Email</h4>
-                                    <p><a href="mailto:vutomikeithnkuna@gmail.com">vutomikeithnkuna@gmail.com</a></p>
-                                </div>
-                            </div>
+                        <h3>Office Details</h3>
+                        <div class="info-item">
+                            <h4>Address</h4>
+                            <p>245 Basden Avenue, Die Hoewes, Centurion, 0163</p>
                         </div>
-
-                        <div style="margin-top: 2rem;">
-                            <a href="mailto:vutomikeithnkuna@gmail.com" class="cta-btn" style="width: 100%; text-align: center; display: block;">Open Email Client</a>
+                        <div class="info-item">
+                            <h4>Phone</h4>
+                            <p><a href="tel:0767173339">076 717 3339</a></p>
+                        </div>
+                        <div class="info-item">
+                            <h4>Email</h4>
+                            <p><a href="mailto:vutomikeithnkuna@gmail.com">vutomikeithnkuna@gmail.com</a></p>
                         </div>
                     </div>
 
-                    <!-- Right: Form with Date Picker & Instant Submission Status -->
                     <div class="contact-form-panel">
                         <h3>Send Us a Message</h3>
-                        
-                        <form id="ajaxContactForm">
-                            <input type="hidden" name="_to" value="vutomikeithnkuna@gmail.com">
-
+                        <form id="contactForm" onsubmit="processForm(event)">
                             <div class="form-group">
-                                <label for="fullName">Full Name</label>
-                                <input type="text" id="fullName" name="fullName" required placeholder="John Doe">
+                                <label>Full Name</label>
+                                <input type="text" id="clientName" required placeholder="John Doe">
                             </div>
 
                             <div class="form-group">
-                                <label for="phoneNum">Phone Number</label>
-                                <input type="tel" id="phoneNum" name="phoneNum" required placeholder="076 000 0000">
+                                <label>Phone Number</label>
+                                <input type="tel" id="clientPhone" required placeholder="076 000 0000">
                             </div>
 
                             <div class="form-group">
-                                <label for="consultDate">Preferred Consultation Date</label>
-                                <input type="date" id="consultDate" name="consultDate" required>
+                                <label>Consultation Date</label>
+                                <input type="date" id="clientDate" required>
                             </div>
 
                             <div class="form-group">
-                                <label for="serviceType">Select Matter / Service</label>
-                                <select id="serviceType" name="serviceType" required>
-                                    <option value="">-- Choose Matter Type --</option>
+                                <label>Matter Type</label>
+                                <select id="clientService" required>
+                                    <option value="">-- Select Service --</option>
                                     <option value="Road Accident Fund">Road Accident Fund</option>
                                     <option value="Medical Negligence">Medical Negligence</option>
                                     <option value="Unlawful Arrest">Unlawful Arrest</option>
                                     <option value="Civil Litigation">Civil Litigation</option>
                                     <option value="Criminal Matters">Criminal Matters</option>
-                                    <option value="Family Law (Divorce & Maintenance)">Family Law (Divorce & Maintenance)</option>
-                                    <option value="Deceased Estates">Deceased Estates</option>
-                                    <option value="Labour Matters">Labour Matters</option>
+                                    <option value="Family Law">Family Law</option>
                                 </select>
                             </div>
 
                             <div class="form-group">
-                                <label for="messageContent">Details of Your Case</label>
-                                <textarea id="messageContent" name="messageContent" rows="4" required placeholder="Briefly describe your legal situation..."></textarea>
+                                <label>Case Details</label>
+                                <textarea id="clientMsg" rows="4" required placeholder="Describe your case..."></textarea>
                             </div>
 
-                            <button type="submit" id="submitBtn" class="cta-btn" style="width: 100%;">Send Message to Firm</button>
-                            
-                            <!-- Visual Confirmation Status Box -->
-                            <div id="formStatus"></div>
+                            <button type="submit" class="cta-btn" style="width:100%;">Send Message</button>
+                            <div id="statusBox"></div>
                         </form>
                     </div>
-                </div>
-
-                <!-- Google Maps Embed -->
-                <div class="map-container">
-                    <iframe 
-                        src="https://maps.google.com/maps?q=245%20Basden%20Avenue,%20Die%20Hoewes,%20Centurion,%200163&t=&z=15&ie=UTF8&iwloc=&output=embed" 
-                        allowfullscreen="" 
-                        loading="lazy">
-                    </iframe>
                 </div>
             </div>
         </section>
     </main>
 
-    <!-- FOOTER -->
     <footer>
-        <div class="footer-content">
-            <div class="footer-brand">
-                <h4>TMN NKUNA ATTORNEYS</h4>
-                <p style="font-size: 0.85rem; color: var(--gold-accent);">Fighting for your justice, every step of the way.</p>
-            </div>
-            <div>
-                <p><i class="fa-solid fa-phone" style="color: var(--gold-accent);"></i> 076 717 3339</p>
-                <p><i class="fa-solid fa-envelope" style="color: var(--gold-accent);"></i> vutomikeithnkuna@gmail.com</p>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; TMN Nkuna Attorneys. All Rights Reserved. Designed for Centurion Legal Practice.</p>
-        </div>
+        <p>&copy; TMN Nkuna Attorneys. All Rights Reserved.</p>
     </footer>
 
-    <!-- ROBUST EVENT LISTENER LOGIC -->
+    <!-- INLINE JAVASCRIPT DIRECT ROUTER -->
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            // Function to handle switching pages smoothly
-            function navigateTo(pageId) {
-                const pages = document.querySelectorAll('.page-section');
-                pages.forEach(page => page.classList.remove('active'));
-
-                const activePage = document.getElementById(pageId);
-                if (activePage) {
-                    activePage.classList.add('active');
-                }
-
-                const navLinks = document.querySelectorAll('.nav-links a');
-                navLinks.forEach(link => link.classList.remove('active'));
-
-                const currentNav = document.getElementById('nav-' + pageId);
-                if (currentNav) {
-                    currentNav.classList.add('active');
-                }
-
-                const navMenu = document.getElementById('navLinks');
-                if (navMenu) {
-                    navMenu.classList.remove('show');
-                }
-
-                window.scrollTo({ top: 0, behavior: 'smooth' });
+        function switchTab(tabId) {
+            // Hide all page sections
+            var pages = document.querySelectorAll('.page-section');
+            for (var i = 0; i < pages.length; i++) {
+                pages[i].classList.remove('active');
             }
 
-            // Attach event listeners to all navigation triggers (menu links and buttons)
-            document.querySelectorAll('[data-target]').forEach(element => {
-                element.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    const targetPage = this.getAttribute('data-target');
-                    if (targetPage) {
-                        navigateTo(targetPage);
-                    }
-                });
-            });
-
-            // Mobile Hamburger menu toggle
-            const menuToggleBtn = document.getElementById('menuToggleBtn');
-            const navLinksContainer = document.getElementById('navLinks');
-            if (menuToggleBtn && navLinksContainer) {
-                menuToggleBtn.addEventListener('click', function () {
-                    navLinksContainer.classList.toggle('show');
-                });
+            // Remove active class from buttons
+            var buttons = document.querySelectorAll('.nav-links button');
+            for (var j = 0; j < buttons.length; j++) {
+                buttons[j].classList.remove('active');
             }
 
-            // Contact Form Ajax Submission Handler
-            const contactForm = document.getElementById('ajaxContactForm');
-            if (contactForm) {
-                contactForm.addEventListener('submit', async function (event) {
-                    event.preventDefault();
+            // Activate target page and button
+            document.getElementById('page-' + tabId).classList.add('active');
+            document.getElementById('btn-' + tabId).classList.add('active');
 
-                    const submitBtn = document.getElementById('submitBtn');
-                    const statusDiv = document.getElementById('formStatus');
-                    
-                    submitBtn.innerText = "Sending Message...";
-                    submitBtn.disabled = true;
-                    statusDiv.style.display = "none";
+            // Close mobile menu if open
+            document.getElementById('navMenu').classList.remove('show');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
 
-                    const formData = {
-                        name: document.getElementById('fullName').value,
-                        phone: document.getElementById('phoneNum').value,
-                        consultDate: document.getElementById('consultDate').value,
-                        service: document.getElementById('serviceType').value,
-                        message: document.getElementById('messageContent').value,
-                        emailTarget: "vutomikeithnkuna@gmail.com"
-                    };
+        function toggleMobileNav() {
+            document.getElementById('navMenu').classList.toggle('show');
+        }
 
-                    try {
-                        const response = await fetch("https://formspree.io/f/xlgppvqa", {
-                            method: "POST",
-                            headers: {
-                                'Accept': 'application/json',
-                                'Content-Type': 'application/json'
-                            },
-                            body: JSON.stringify(formData)
-                        });
+        function processForm(event) {
+            event.preventDefault();
+            
+            var name = document.getElementById('clientName').value;
+            var phone = document.getElementById('clientPhone').value;
+            var date = document.getElementById('clientDate').value;
+            var service = document.getElementById('clientService').value;
+            var message = document.getElementById('clientMsg').value;
 
-                        if (response.ok) {
-                            statusDiv.className = "success";
-                            statusDiv.innerText = "✓ Success! Your inquiry has been sent. We will review your case details and contact you shortly.";
-                            contactForm.reset();
-                        } else {
-                            throw new Error("Server transmission error.");
-                        }
-                    } catch (error) {
-                        statusDiv.className = "error";
-                        statusDiv.innerText = "✕ Error sending message. Please check your connection or call us directly at 076 717 3339.";
-                    } finally {
-                        submitBtn.innerText = "Send Message to Firm";
-                        submitBtn.disabled = false;
-                    }
-                });
-            }
-        });
+            var statusBox = document.getElementById('statusBox');
+            statusBox.style.display = 'block';
+            statusBox.style.background = '#D1E7DD';
+            statusBox.style.color = '#0F5132';
+            statusBox.innerHTML = '✓ Message prepared! Opening your mail app to finalize delivery to vutomikeithnkuna@gmail.com...';
+
+            var mailtoUrl = "mailto:vutomikeithnkuna@gmail.com" +
+                            "?subject=" + encodeURIComponent("Consultation Request: " + service + " - " + name) +
+                            "&body=" + encodeURIComponent("Client Name: " + name + "\nPhone: " + phone + "\nPreferred Date: " + date + "\nMatter: " + service + "\n\nDetails:\n" + message);
+
+            setTimeout(function() {
+                window.location.href = mailtoUrl;
+            }, 800);
+        }
     </script>
 </body>
 </html>
