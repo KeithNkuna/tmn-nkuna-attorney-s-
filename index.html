@@ -683,7 +683,7 @@
             };
 
             try {
-                var response = await fetch("https://formspree.io/f/mljbebne", {
+                var response = await flexFetch("https://formspree.io/f/mljbebne", {
                     method: "POST",
                     headers: {
                         'Accept': 'application/json',
@@ -708,6 +708,33 @@
                     throw new Error("Submission failed.");
                 }
             } catch (error) {
+                // Fallback standard fetch call definition
+                try {
+                    var fallbackResponse = await fetch("https://formspree.io/f/mljbebne", {
+                        method: "POST",
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(formData)
+                    });
+                    
+                    statusBox.style.display = 'block';
+                    if (fallbackResponse.ok) {
+                        statusBox.style.background = '#D1E7DD';
+                        statusBox.style.color = '#0F5132';
+                        statusBox.innerHTML = `
+                            ✓ Success! Your message has been sent.<br>
+                            <strong>Your Reference Number:</strong><br>
+                            <div class="ref-tag">${refNum}</div><br>
+                            <span style="font-size:0.85rem; font-weight:normal;">Please screenshot or copy this reference code for your records.</span>
+                        `;
+                        document.getElementById('contactForm').reset();
+                        statusBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                        return;
+                    }
+                } catch(e) {}
+
                 statusBox.style.display = 'block';
                 statusBox.style.background = '#F8D7DA';
                 statusBox.style.color = '#842029';
@@ -717,6 +744,11 @@
                 submitBtn.innerText = "Send Message";
                 submitBtn.disabled = false;
             }
+        }
+
+        // Helper alias for fetch to safeguard execution
+        async function flexFetch(url, options) {
+            return await fetch(url, options);
         }
     </script>
 </body>
