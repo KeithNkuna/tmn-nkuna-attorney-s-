@@ -157,7 +157,7 @@
 
         .cta-btn:hover { background: var(--gold-hover); }
 
-        .container { max-width: 1200px; margin: 0 auto; padding: 4rem 2rem; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 4rem 1.5rem; }
 
         .section-header { text-align: center; margin-bottom: 3rem; }
 
@@ -197,7 +197,7 @@
 
         .service-card h3 { color: var(--navy-primary); margin-bottom: 0.5rem; }
 
-        /* --- ABOUT US STYLES (ALIGNED & STANDARDISED) --- */
+        /* --- ABOUT US STYLES (CENTERED & PADDED) --- */
         .about-content-wrapper {
             max-width: 900px;
             margin: 0 auto;
@@ -206,11 +206,12 @@
         .about-card {
             background: var(--white);
             border-radius: 8px;
-            padding: 2.5rem;
+            padding: 2.5rem 2rem;
             box-shadow: var(--card-shadow);
             border-left: 5px solid var(--gold-accent);
             margin-bottom: 2rem;
-            text-align: left;
+            text-align: center; /* Centers headings and badges cleanly */
+            overflow: hidden;
         }
 
         .about-card h3 {
@@ -218,20 +219,22 @@
             color: var(--navy-primary);
             font-size: 1.5rem;
             margin-bottom: 1rem;
-            text-align: left;
+            text-align: center;
         }
 
         .about-card p {
             margin-bottom: 1rem;
             color: #4A5568;
-            text-align: left;
+            text-align: left; /* Keep body text readable left-aligned inside padded container */
+            padding: 0 0.5rem;
         }
 
         .director-flex {
             display: flex;
-            gap: 2.5rem;
+            flex-direction: column;
             align-items: center;
-            flex-wrap: wrap;
+            text-align: center;
+            gap: 1.5rem;
         }
 
         .director-img {
@@ -241,26 +244,26 @@
             border-radius: 8px;
             border: 3px solid var(--gold-accent);
             box-shadow: var(--card-shadow);
-            flex-shrink: 0;
+            margin: 0 auto;
         }
 
         .director-info {
-            flex: 1;
-            min-width: 280px;
+            width: 100%;
             text-align: left;
+            padding: 0 0.5rem;
         }
 
         .director-badge {
             display: inline-block;
             background: var(--navy-primary);
             color: var(--gold-accent);
-            padding: 4px 12px;
+            padding: 6px 16px;
             border-radius: 4px;
             font-size: 0.85rem;
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 1px;
-            margin-bottom: 1rem;
+            margin: 0 auto 1.5rem auto;
         }
 
         /* --- CONTACT WRAPPER --- */
@@ -386,12 +389,19 @@
         }
 
         /* --- RESPONSIVE --- */
+        @media (min-width: 768px) {
+            .director-flex {
+                flex-direction: row;
+                text-align: left;
+            }
+            .director-badge {
+                margin: 0 0 1.5rem 0;
+            }
+        }
+
         @media (max-width: 768px) {
             .contact-wrapper { grid-template-columns: 1fr; }
             .form-row { grid-template-columns: 1fr; }
-            .director-flex { flex-direction: column; text-align: center; }
-            .director-info { text-align: center; }
-            .director-img { margin: 0 auto; }
             .nav-links {
                 display: none;
                 flex-direction: column;
@@ -507,13 +517,15 @@
                     </div>
 
                     <div class="about-card" style="border-left-color: var(--navy-primary);">
-                        <div class="director-badge">Director Profile</div>
+                        <div style="text-align: center;">
+                            <div class="director-badge">Director Profile</div>
+                        </div>
                         
                         <div class="director-flex">
                             <img src="IMG-20261111-WA0001.jpg" alt="Terry Mfanafuthi Ntwanano Nkuna - Director" class="director-img">
                             
                             <div class="director-info">
-                                <h3 style="margin-bottom: 0.5rem;">Terry Mfanafuthi Ntwanano Nkuna</h3>
+                                <h3 style="margin-bottom: 0.5rem; text-align: left;">Terry Mfanafuthi Ntwanano Nkuna</h3>
                                 <p style="margin-bottom: 1rem;">
                                     <strong>Terry Mfanafuthi Ntwanano Nkuna</strong> serves as the founding Director of TMN Nkuna Attorneys. As a legal practitioner, he leads the firm with strategic leadership, courtroom expertise, and a relentless commitment to achieving justice for every client.
                                 </p>
