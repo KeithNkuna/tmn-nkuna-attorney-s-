@@ -227,11 +227,12 @@
 
         #statusBox {
             display: none;
-            margin-top: 1rem;
-            padding: 1rem;
+            margin-top: 1.2rem;
+            padding: 1.2rem;
             border-radius: 4px;
             font-weight: 600;
             text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
         }
 
         /* --- INTERACTIVE LOCATION MAP --- */
@@ -561,6 +562,9 @@
                     statusBox.style.color = '#0F5132';
                     statusBox.innerHTML = '✓ Success! Your message has been sent to vutomikeithnkuna@gmail.com.';
                     document.getElementById('contactForm').reset();
+                    
+                    // Smoothly scroll down so the success box is fully in view without cutting off
+                    statusBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
                 } else {
                     throw new Error("Failed to send.");
                 }
@@ -569,6 +573,7 @@
                 statusBox.style.background = '#F8D7DA';
                 statusBox.style.color = '#842029';
                 statusBox.innerHTML = '✕ Error sending message. Please check your internet connection and try again.';
+                statusBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
             } finally {
                 submitBtn.innerText = "Send Message";
                 submitBtn.disabled = false;
