@@ -216,6 +216,12 @@
 
         .contact-form-panel { padding: 2.5rem; }
 
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
         .form-group { margin-bottom: 1.2rem; }
         .form-group label { display: block; font-size: 0.85rem; font-weight: 600; color: var(--navy-primary); margin-bottom: 4px; text-transform: uppercase; }
         .form-group input, .form-group select, .form-group textarea {
@@ -239,11 +245,13 @@
             display: inline-block;
             background: var(--navy-primary);
             color: var(--gold-accent);
-            padding: 4px 10px;
+            padding: 6px 14px;
             border-radius: 4px;
-            font-size: 1.1rem;
+            font-size: 1.2rem;
+            font-weight: 700;
             letter-spacing: 1px;
-            margin-top: 5px;
+            margin: 8px 0;
+            user-select: all;
         }
 
         /* --- INTERACTIVE LOCATION MAP --- */
@@ -306,6 +314,7 @@
         /* --- RESPONSIVE --- */
         @media (max-width: 768px) {
             .contact-wrapper { grid-template-columns: 1fr; }
+            .form-row { grid-template-columns: 1fr; }
             .nav-links {
                 display: none;
                 flex-direction: column;
@@ -456,14 +465,42 @@
                                 <input type="text" id="clientName" name="name" required placeholder="John Doe">
                             </div>
 
-                            <div class="form-group">
-                                <label>Phone Number</label>
-                                <input type="tel" id="clientPhone" name="phone" required placeholder="076 000 0000">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Email Address</label>
+                                    <input type="email" id="clientEmail" name="email" required placeholder="name@example.com">
+                                </div>
+                                <div class="form-group">
+                                    <label>Phone Number</label>
+                                    <input type="tel" id="clientPhone" name="phone" required placeholder="076 000 0000">
+                                </div>
                             </div>
 
-                            <div class="form-group">
-                                <label>Consultation Date</label>
-                                <input type="date" id="clientDate" name="date" required>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Gender</label>
+                                    <select id="clientGender" name="gender" required>
+                                        <option value="">-- Select --</option>
+                                        <option value="Male">Male</option>
+                                        <option value="Female">Female</option>
+                                        <option value="Prefer not to say">Prefer not to say</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Age</label>
+                                    <input type="number" id="clientAge" name="age" min="18" max="100" required placeholder="e.g. 35">
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Location (Sending From)</label>
+                                    <input type="text" id="clientLocation" name="location" required placeholder="e.g. Centurion, Gauteng">
+                                </div>
+                                <div class="form-group">
+                                    <label>Consultation Date</label>
+                                    <input type="date" id="clientDate" name="date" required>
+                                </div>
                             </div>
 
                             <div class="form-group">
@@ -549,16 +586,20 @@
             submitBtn.disabled = true;
             statusBox.style.display = "none";
 
-            // Generate a unique reference number (e.g., TMN-4829)
-            var referenceNum = "TMN-" + Math.floor(1000 + Math.random() * 9000);
+            // Generate Reference Number
+            var refNum = "TMN-" + Math.floor(100000 + Math.random() * 900000);
 
             var formData = {
-                reference: referenceNum,
-                name: document.getElementById('clientName').value,
-                phone: document.getElementById('clientPhone').value,
-                date: document.getElementById('clientDate').value,
-                service: document.getElementById('clientService').value,
-                message: document.getElementById('clientMsg').value
+                "Reference Number": refNum,
+                "Full Name": document.getElementById('clientName').value,
+                "Email": document.getElementById('clientEmail').value,
+                "Phone": document.getElementById('clientPhone').value,
+                "Gender": document.getElementById('clientGender').value,
+                "Age": document.getElementById('clientAge').value,
+                "Location (Sending From)": document.getElementById('clientLocation').value,
+                "Preferred Date": document.getElementById('clientDate').value,
+                "Matter Type": document.getElementById('clientService').value,
+                "Case Summary": document.getElementById('clientMsg').value
             };
 
             try {
@@ -575,12 +616,16 @@
                 if (response.ok) {
                     statusBox.style.background = '#D1E7DD';
                     statusBox.style.color = '#0F5132';
-                    statusBox.innerHTML = '✓ Success! Your message has been sent.<br>Your Reference Number:<br><span class="ref-tag">' + referenceNum + '</span><br><span style="font-size:0.8rem; font-weight:normal;">(Please save or screenshot this reference number)</span>';
+                    statusBox.innerHTML = `
+                        ✓ Success! Your message has been sent.<br>
+                        <strong>Your Reference Number:</strong><br>
+                        <div class="ref-tag">${refNum}</div><br>
+                        <span style="font-size:0.85rem; font-weight:normal;">Please screenshot or copy this reference code for your records.</span>
+                    `;
                     document.getElementById('contactForm').reset();
-                    
                     statusBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
                 } else {
-                    throw new Error("Failed to send.");
+                    throw new Error("Submission failed.");
                 }
             } catch (error) {
                 statusBox.style.display = 'block';
