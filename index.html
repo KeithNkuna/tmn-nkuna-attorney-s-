@@ -34,7 +34,7 @@
         body {
             background-color: var(--gray-bg);
             color: #333333;
-            line-height: 1.6;
+            line-height: 1.7;
             display: flex;
             flex-direction: column;
             min-height: 100vh;
@@ -197,26 +197,39 @@
 
         .service-card h3 { color: var(--navy-primary); margin-bottom: 0.5rem; }
 
-        /* --- ABOUT US STYLES --- */
+        /* --- ABOUT US STYLES (ALIGNED & STANDARDISED) --- */
+        .about-content-wrapper {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
         .about-card {
             background: var(--white);
             border-radius: 8px;
-            padding: 3rem 2.5rem;
+            padding: 2.5rem;
             box-shadow: var(--card-shadow);
             border-left: 5px solid var(--gold-accent);
-            margin-bottom: 2.5rem;
+            margin-bottom: 2rem;
+            text-align: left;
         }
 
         .about-card h3 {
             font-family: 'Cinzel', serif;
             color: var(--navy-primary);
-            font-size: 1.6rem;
+            font-size: 1.5rem;
             margin-bottom: 1rem;
+            text-align: left;
+        }
+
+        .about-card p {
+            margin-bottom: 1rem;
+            color: #4A5568;
+            text-align: left;
         }
 
         .director-flex {
             display: flex;
-            gap: 2rem;
+            gap: 2.5rem;
             align-items: center;
             flex-wrap: wrap;
         }
@@ -228,11 +241,13 @@
             border-radius: 8px;
             border: 3px solid var(--gold-accent);
             box-shadow: var(--card-shadow);
+            flex-shrink: 0;
         }
 
         .director-info {
             flex: 1;
             min-width: 280px;
+            text-align: left;
         }
 
         .director-badge {
@@ -257,6 +272,7 @@
             border-radius: 8px;
             box-shadow: var(--card-shadow);
             overflow: hidden;
+            text-align: left;
         }
 
         .contact-info-panel {
@@ -271,7 +287,8 @@
         .info-item h4 { color: var(--text-muted); font-size: 0.85rem; text-transform: uppercase; }
         .info-item a, .info-item p { color: var(--text-light); text-decoration: none; }
 
-        .contact-form-panel { padding: 2.5rem; }
+        .contact-form-panel { padding: 2.5rem; text-align: left; }
+        .contact-form-panel h3 { font-family: 'Cinzel', serif; color: var(--navy-primary); margin-bottom: 1.5rem; }
 
         .form-row {
             display: grid;
@@ -279,7 +296,7 @@
             gap: 1rem;
         }
 
-        .form-group { margin-bottom: 1.2rem; }
+        .form-group { margin-bottom: 1.2rem; text-align: left; }
         .form-group label { display: block; font-size: 0.85rem; font-weight: 600; color: var(--navy-primary); margin-bottom: 4px; text-transform: uppercase; }
         .form-group input, .form-group select, .form-group textarea {
             width: 100%;
@@ -373,6 +390,7 @@
             .contact-wrapper { grid-template-columns: 1fr; }
             .form-row { grid-template-columns: 1fr; }
             .director-flex { flex-direction: column; text-align: center; }
+            .director-info { text-align: center; }
             .director-img { margin: 0 auto; }
             .nav-links {
                 display: none;
@@ -477,31 +495,32 @@
                     <p>Established in 2026 | Committed to Legal Excellence & Integrity</p>
                 </div>
 
-                <div class="about-card">
-                    <h3>Our Foundation & Mission</h3>
-                    <p style="margin-bottom: 1rem;">
-                        <strong>TMN Nkuna Attorneys</strong> was established in <strong>2026</strong> as a premier, dynamic legal practice based in Centurion, Gauteng. Founded on the core principles of legal precision, unyielding integrity, and deep client dedication, our firm provides aggressive advocate-level representation for individuals, families, and corporate entities across South Africa.
-                    </p>
-                    <p>
-                        We recognize that navigating complex legal landscapes can be daunting. Our firm centers its practice on strategic problem-solving, transparent communication, and tireless defense of our clients' constitutional and civil rights.
-                    </p>
-                </div>
+                <div class="about-content-wrapper">
+                    <div class="about-card">
+                        <h3>Our Foundation & Mission</h3>
+                        <p>
+                            <strong>TMN Nkuna Attorneys</strong> was established in <strong>2026</strong> as a premier, dynamic legal practice based in Centurion, Gauteng. Founded on the core principles of legal precision, unyielding integrity, and deep client dedication, our firm provides aggressive advocate-level representation for individuals, families, and corporate entities across South Africa.
+                        </p>
+                        <p>
+                            We recognize that navigating complex legal landscapes can be daunting. Our firm centers its practice on strategic problem-solving, transparent communication, and tireless defense of our clients' constitutional and civil rights.
+                        </p>
+                    </div>
 
-                <div class="about-card" style="border-left-color: var(--navy-primary);">
-                    <div class="director-badge">Director Profile</div>
-                    
-                    <div class="director-flex">
-                        <!-- Director Photo Linked to exact uploaded file -->
-                        <img src="IMG-20261111-WA0001.jpg" alt="Terry Mfanafuthi Ntwanano Nkuna - Director" class="director-img">
+                    <div class="about-card" style="border-left-color: var(--navy-primary);">
+                        <div class="director-badge">Director Profile</div>
                         
-                        <div class="director-info">
-                            <h3>Terry Mfanafuthi Ntwanano Nkuna</h3>
-                            <p style="margin-bottom: 1rem;">
-                                <strong>Terry Mfanafuthi Ntwanano Nkuna</strong> serves as the founding Director of TMN Nkuna Attorneys. As a legal practitioner, he leads the firm with strategic leadership, courtroom expertise, and a relentless commitment to achieving justice for every client.
-                            </p>
-                            <p>
-                                Under his direction, the practice has established a reputation for diligent case analysis, meticulous trial preparation, and assertive advocacy across Road Accident Fund claims, Civil Litigation, Criminal Defense, and Medical Negligence matters.
-                            </p>
+                        <div class="director-flex">
+                            <img src="IMG-20261111-WA0001.jpg" alt="Terry Mfanafuthi Ntwanano Nkuna - Director" class="director-img">
+                            
+                            <div class="director-info">
+                                <h3 style="margin-bottom: 0.5rem;">Terry Mfanafuthi Ntwanano Nkuna</h3>
+                                <p style="margin-bottom: 1rem;">
+                                    <strong>Terry Mfanafuthi Ntwanano Nkuna</strong> serves as the founding Director of TMN Nkuna Attorneys. As a legal practitioner, he leads the firm with strategic leadership, courtroom expertise, and a relentless commitment to achieving justice for every client.
+                                </p>
+                                <p>
+                                    Under his direction, the practice has established a reputation for diligent case analysis, meticulous trial preparation, and assertive advocacy across Road Accident Fund claims, Civil Litigation, Criminal Defense, and Medical Negligence matters.
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -683,7 +702,6 @@
 
             var phoneInput = document.getElementById('clientPhone').value;
 
-            // Extra security check for 10-digit requirement
             if (phoneInput.length !== 10 || !/^\d{10}$/.test(phoneInput)) {
                 statusBox.style.display = 'block';
                 statusBox.style.background = '#F8D7DA';
@@ -697,7 +715,6 @@
             submitBtn.disabled = true;
             statusBox.style.display = "none";
 
-            // Generate Reference Number
             var refNum = "TMN-" + Math.floor(100000 + Math.random() * 900000);
 
             var formData = {
