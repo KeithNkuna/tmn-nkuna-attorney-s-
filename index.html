@@ -381,7 +381,6 @@
 
                     <div class="contact-form-panel">
                         <h3>Send Us a Message</h3>
-                        <!-- Form configured to submit via AJAX background post without leaving the site -->
                         <form id="contactForm" onsubmit="processForm(event)">
                             <div class="form-group">
                                 <label>Full Name</label>
@@ -468,13 +467,11 @@
                 phone: document.getElementById('clientPhone').value,
                 date: document.getElementById('clientDate').value,
                 service: document.getElementById('clientService').value,
-                message: document.getElementById('clientMsg').value,
-                _to: "vutomikeithnkuna@gmail.com"
+                message: document.getElementById('clientMsg').value
             };
 
             try {
-                // Posts the form data cleanly in the background to Formspree service route
-                var response = await fetch("https://formspree.io/f/xlgppvqa", {
+                var response = await fetch("https://formspree.io/f/mljbebne", {
                     method: "POST",
                     headers: {
                         'Accept': 'application/json',
@@ -496,7 +493,7 @@
                 statusBox.style.display = 'block';
                 statusBox.style.background = '#F8D7DA';
                 statusBox.style.color = '#842029';
-                statusBox.innerHTML = '✕ Note: To use background delivery without mail redirection, please activate your free endpoint at formspree.io using vutomikeithnkuna@gmail.com.';
+                statusBox.innerHTML = '✕ Error sending message. Please check your internet connection and try again.';
             } finally {
                 submitBtn.innerText = "Send Message";
                 submitBtn.disabled = false;
