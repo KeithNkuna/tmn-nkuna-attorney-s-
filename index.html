@@ -235,6 +235,17 @@
             box-shadow: 0 4px 12px rgba(0,0,0,0.05);
         }
 
+        .ref-tag {
+            display: inline-block;
+            background: var(--navy-primary);
+            color: var(--gold-accent);
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+            margin-top: 5px;
+        }
+
         /* --- INTERACTIVE LOCATION MAP --- */
         .map-section {
             margin-top: 3rem;
@@ -538,7 +549,11 @@
             submitBtn.disabled = true;
             statusBox.style.display = "none";
 
+            // Generate a unique reference number (e.g., TMN-4829)
+            var referenceNum = "TMN-" + Math.floor(1000 + Math.random() * 9000);
+
             var formData = {
+                reference: referenceNum,
                 name: document.getElementById('clientName').value,
                 phone: document.getElementById('clientPhone').value,
                 date: document.getElementById('clientDate').value,
@@ -560,10 +575,9 @@
                 if (response.ok) {
                     statusBox.style.background = '#D1E7DD';
                     statusBox.style.color = '#0F5132';
-                    statusBox.innerHTML = '✓ Success! Your message has been sent to vutomikeithnkuna@gmail.com.';
+                    statusBox.innerHTML = '✓ Success! Your message has been sent.<br>Your Reference Number:<br><span class="ref-tag">' + referenceNum + '</span><br><span style="font-size:0.8rem; font-weight:normal;">(Please save or screenshot this reference number)</span>';
                     document.getElementById('contactForm').reset();
                     
-                    // Smoothly scroll down so the success box is fully in view without cutting off
                     statusBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
                 } else {
                     throw new Error("Failed to send.");
