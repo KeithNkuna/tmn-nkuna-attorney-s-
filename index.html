@@ -8,9 +8,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- HTML2PDF Library for Client Intake PDF Generation -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-
     <style>
         /* --- CSS VARIABLES & THEME --- */
         :root {
@@ -438,6 +435,27 @@
             box-shadow: 0 0 0 3px rgba(15, 30, 54, 0.1);
         }
 
+        #formStatus {
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: 4px;
+            text-align: center;
+            font-weight: 600;
+            display: none;
+        }
+
+        #formStatus.success {
+            background-color: #D1E7DD;
+            color: #0F5132;
+            display: block;
+        }
+
+        #formStatus.error {
+            background-color: #F8D7DA;
+            color: #842029;
+            display: block;
+        }
+
         /* --- MAP SECTION --- */
         .map-container {
             margin-top: 3rem;
@@ -558,7 +576,7 @@
     </header>
 
     <main>
-        <!-- ==================== PAGE 1: HOME ==================== -->
+        <!-- ==================== HOME ==================== -->
         <section id="home" class="page-section active">
             <div class="hero">
                 <div class="hero-content">
@@ -607,7 +625,7 @@
             </div>
         </section>
 
-        <!-- ==================== PAGE 2: ABOUT US ==================== -->
+        <!-- ==================== ABOUT US ==================== -->
         <section id="about" class="page-section">
             <div class="container">
                 <div class="section-header">
@@ -636,7 +654,7 @@
             </div>
         </section>
 
-        <!-- ==================== PAGE 3: PRACTICE AREAS ==================== -->
+        <!-- ==================== PRACTICE AREAS ==================== -->
         <section id="services" class="page-section">
             <div class="container">
                 <div class="section-header">
@@ -697,7 +715,7 @@
             </div>
         </section>
 
-        <!-- ==================== PAGE 4: CONTACT US ==================== -->
+        <!-- ==================== CONTACT US ==================== -->
         <section id="contact" class="page-section">
             <div class="container">
                 <div class="section-header">
@@ -738,28 +756,29 @@
                         </div>
 
                         <div style="margin-top: 2rem;">
-                            <a href="mailto:info@tmnattorneys.co.za" class="cta-btn" style="width: 100%; text-align: center;">Open Direct Email</a>
+                            <a href="mailto:info@tmnattorneys.co.za" class="cta-btn" style="width: 100%; text-align: center;">Open Email Client</a>
                         </div>
                     </div>
 
-                    <!-- Right: Form with PDF Generation & Email Trigger -->
+                    <!-- Right: Direct AJAX Submission Form (No Email Client Redirect) -->
                     <div class="contact-form-panel">
                         <h3>Send Us a Message</h3>
                         
-                        <form id="contactForm" onsubmit="handleMailtoWithPDF(event)">
+                        <!-- Using Formspree free endpoint configured to route straight to info@tmnattorneys.co.za -->
+                        <form id="ajaxContactForm" onsubmit="submitFormAjax(event)">
                             <div class="form-group">
                                 <label for="fullName">Full Name</label>
-                                <input type="text" id="fullName" required placeholder="John Doe">
+                                <input type="text" id="fullName" name="fullName" required placeholder="John Doe">
                             </div>
 
                             <div class="form-group">
                                 <label for="phoneNum">Phone Number</label>
-                                <input type="tel" id="phoneNum" required placeholder="076 000 0000">
+                                <input type="tel" id="phoneNum" name="phoneNum" required placeholder="076 000 0000">
                             </div>
 
                             <div class="form-group">
                                 <label for="serviceType">Select Matter / Service</label>
-                                <select id="serviceType" required>
+                                <select id="serviceType" name="serviceType" required>
                                     <option value="">-- Choose Matter Type --</option>
                                     <option value="Road Accident Fund">Road Accident Fund</option>
                                     <option value="Medical Negligence">Medical Negligence</option>
@@ -774,10 +793,12 @@
 
                             <div class="form-group">
                                 <label for="messageContent">Details of Your Case</label>
-                                <textarea id="messageContent" rows="4" required placeholder="Briefly describe your legal situation..."></textarea>
+                                <textarea id="messageContent" name="messageContent" rows="4" required placeholder="Briefly describe your legal situation..."></textarea>
                             </div>
 
-                            <button type="submit" id="submitBtn" class="cta-btn" style="width: 100%;">Submit Request via Email</button>
+                            <button type="submit" id="submitBtn" class="cta-btn" style="width: 100%;">Send Message to Firm</button>
+                            
+                            <div id="formStatus"></div>
                         </form>
                     </div>
                 </div>
@@ -813,7 +834,7 @@
 
     <!-- INTERACTIVE JAVASCRIPT LOGIC -->
     <script>
-        // Multi-page router: Displays one section at a time based on navigation clicks
+        // Multi-page router
         function navigateTo(pageId) {
             const pages = document.querySelectorAll('.page-section');
             pages.forEach(page => page.classList.remove('active'));
@@ -835,85 +856,55 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // Mobile Hamburger menu toggle function
+        // Mobile Hamburger menu toggle
         function toggleMenu() {
             const nav = document.getElementById('navLinks');
             nav.classList.toggle('show');
         }
 
-        // Form handler: Generates PDF document and opens email client
-        function handleMailtoWithPDF(event) {
+        // Direct submission without leaving website using Formspree free API backend
+        async function submitFormAjax(event) {
             event.preventDefault();
 
             const submitBtn = document.getElementById('submitBtn');
-            submitBtn.innerText = "Generating PDF...";
+            const statusDiv = document.getElementById('formStatus');
+            
+            submitBtn.innerText = "Sending Message...";
             submitBtn.disabled = true;
+            statusDiv.style.display = "none";
 
-            const name = document.getElementById('fullName').value;
-            const phone = document.getElementById('phoneNum').value;
-            const service = document.getElementById('serviceType').value;
-            const message = document.getElementById('messageContent').value;
-            const date = new Date().toLocaleDateString();
-
-            // Create temporary container element to convert into formatted PDF document
-            const element = document.createElement('div');
-            element.innerHTML = `
-                <div style="padding: 30px; font-family: Arial, sans-serif; color: #0F1E36; background: #ffffff;">
-                    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #D4AF37; padding-bottom: 10px;">
-                        <div>
-                            <h1 style="color: #0F1E36; font-size: 22px; margin: 0;">TMN NKUNA ATTORNEYS</h1>
-                            <p style="font-size: 11px; color: #D4AF37; margin: 0; text-transform: uppercase;">Legal Intake Document</p>
-                        </div>
-                        <div style="text-align: right; font-size: 11px; color: #555;">
-                            <p style="margin: 0;">Date: ${date}</p>
-                            <p style="margin: 0;">Ref: CONSULT-${Math.floor(1000 + Math.random() * 9000)}</p>
-                        </div>
-                    </div>
-                    
-                    <h3 style="margin-top: 25px; color: #0F1E36; border-bottom: 1px solid #ddd; padding-bottom: 5px;">Client Information</h3>
-                    <p style="margin: 8px 0;"><strong>Full Name:</strong> ${name}</p>
-                    <p style="margin: 8px 0;"><strong>Contact Phone:</strong> ${phone}</p>
-                    <p style="margin: 8px 0;"><strong>Selected Matter Type:</strong> ${service}</p>
-                    
-                    <h3 style="margin-top: 25px; color: #0F1E36; border-bottom: 1px solid #ddd; padding-bottom: 5px;">Case Details & Background</h3>
-                    <div style="white-space: pre-wrap; background: #f8fafc; padding: 15px; border-left: 4px solid #D4AF37; margin-top: 10px; font-size: 13px; color: #333;">${message}</div>
-                    
-                    <div style="margin-top: 50px; padding-top: 15px; border-top: 1px solid #ccc; text-align: center; font-size: 10px; color: #777;">
-                        <p style="margin: 0;">245 Basden Avenue, Die Hoewes, Centurion, 0163 | Phone: 076 717 3339 | Email: info@tmnattorneys.co.za</p>
-                        <p style="margin: 3px 0 0 0;">This document contains privileged and confidential attorney-client consultation notes.</p>
-                    </div>
-                </div>
-            `;
-
-            const opt = {
-                margin:       10,
-                filename:     `TMN_Inquiry_${name.replace(/\s+/g, '_')}.pdf`,
-                image:        { type: 'jpeg', quality: 0.98 },
-                html2canvas:  { scale: 2 },
-                jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            const formData = {
+                name: document.getElementById('fullName').value,
+                phone: document.getElementById('phoneNum').value,
+                service: document.getElementById('serviceType').value,
+                message: document.getElementById('messageContent').value
             };
 
-            // Generate PDF file, trigger download, then launch mail client
-            html2pdf().set(opt).from(element).save().then(() => {
-                submitBtn.innerText = "Submit Request via Email";
-                submitBtn.disabled = false;
+            try {
+                // Using Formspree public endpoint linked to info@tmnattorneys.co.za
+                const response = await fetch("https://formspree.io/f/xlgppvqa", {
+                    method: "POST",
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(formData)
+                });
 
-                const recipient = "info@tmnattorneys.co.za";
-                const subject = encodeURIComponent("New Client Inquiry: " + service + " - " + name);
-                const bodyText = `Dear TMN Nkuna Attorneys,%0D%0A%0D%0APlease find my legal inquiry details below and attached intake PDF document.%0D%0A%0D%0AClient Name: ${name}%0D%0APhone Number: ${phone}%0D%0AMatter Type: ${service}%0D%0A%0D%0ACase Summary:%0D%0A${encodeURIComponent(message)}`;
-
-                window.location.href = "mailto:" + recipient + "?subject=" + subject + "&body=" + bodyText;
-            }).catch(err => {
-                console.error(err);
-                submitBtn.innerText = "Submit Request via Email";
+                if (response.ok) {
+                    statusDiv.className = "success";
+                    statusDiv.innerText = "Thank you! Your message has been sent successfully to TMN Nkuna Attorneys.";
+                    document.getElementById('ajaxContactForm').reset();
+                } else {
+                    throw new Error("Server error occurred.");
+                }
+            } catch (error) {
+                statusDiv.className = "error";
+                statusDiv.innerText = "Oops! Something went wrong. Please call us directly at 076 717 3339.";
+            } finally {
+                submitBtn.innerText = "Send Message to Firm";
                 submitBtn.disabled = false;
-                
-                // Fallback to plain mailto link if PDF generation hits browser restrictions
-                const recipient = "info@tmnattorneys.co.za";
-                const subject = encodeURIComponent("New Client Inquiry: " + service + " - " + name);
-                const bodyText = `Client Name: ${name}%0D%0APhone Number: ${phone}%0D%0AMatter Type: ${service}%0D%0A%0D%0AMessage:%0D%0A${encodeURIComponent(message)}`;
-                window.location.href = "mailto:" + recipient + "?subject=" + subject + "&body=" + bodyText;
-            });
+            }
         }
     </script>
 </body>
