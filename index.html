@@ -197,6 +197,36 @@
 
         .service-card h3 { color: var(--navy-primary); margin-bottom: 0.5rem; }
 
+        /* --- ABOUT US STYLES --- */
+        .about-card {
+            background: var(--white);
+            border-radius: 8px;
+            padding: 3rem 2.5rem;
+            box-shadow: var(--card-shadow);
+            border-left: 5px solid var(--gold-accent);
+            margin-bottom: 2.5rem;
+        }
+
+        .about-card h3 {
+            font-family: 'Cinzel', serif;
+            color: var(--navy-primary);
+            font-size: 1.6rem;
+            margin-bottom: 1rem;
+        }
+
+        .director-badge {
+            display: inline-block;
+            background: var(--navy-primary);
+            color: var(--gold-accent);
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 1rem;
+        }
+
         /* --- CONTACT WRAPPER --- */
         .contact-wrapper {
             display: grid;
@@ -374,7 +404,7 @@
             <div class="hero">
                 <div class="hero-content">
                     <h2 class="hero-tagline">Fighting for your justice, every step of the way.</h2>
-                    <p class="hero-subtitle">Dedicated legal representation in Centurion.</p>
+                    <p class="hero-subtitle">Dedicated legal representation in Centurion. Established 2026.</p>
                     <button class="cta-btn" onclick="switchTab('contact')">Schedule Consultation</button>
                 </div>
             </div>
@@ -421,10 +451,29 @@
                 <div class="section-header">
                     <h2>About TMN Nkuna Attorneys</h2>
                     <div class="divider"></div>
+                    <p>Established in 2026 | Committed to Legal Excellence & Integrity</p>
                 </div>
-                <p style="text-align: center; max-width: 800px; margin: 0 auto; font-size: 1.1rem;">
-                    TMN Nkuna Attorneys is a dynamic legal practice based in Die Hoewes, Centurion. Built on legal precision and client dedication, we advocate fiercely for individuals and businesses across South Africa.
-                </p>
+
+                <div class="about-card">
+                    <h3>Our Foundation & Mission</h3>
+                    <p style="margin-bottom: 1rem;">
+                        <strong>TMN Nkuna Attorneys</strong> was established in <strong>2026</strong> as a premier, dynamic legal practice based in Centurion, Gauteng. Founded on the core principles of legal precision, unyielding integrity, and deep client dedication, our firm provides aggressive advocate-level representation for individuals, families, and corporate entities across South Africa.
+                    </p>
+                    <p>
+                        We recognize that navigating complex legal landscapes can be daunting. Our firm centers its practice on strategic problem-solving, transparent communication, and tireless defense of our clients' constitutional and civil rights.
+                    </p>
+                </div>
+
+                <div class="about-card" style="border-left-color: var(--navy-primary);">
+                    <div class="director-badge">Director Profile</div>
+                    <h3>Terry Mfanafuthi Ntwanano Nkuna</h3>
+                    <p style="margin-bottom: 1rem;">
+                        <strong>Terry Mfanafuthi Ntwanano Nkuna</strong> serves as the founding Director of TMN Nkuna Attorneys. As a legal practitioner, he leads the firm with strategic leadership, courtroom expertise, and a relentless commitment to achieving justice for every client.
+                    </p>
+                    <p>
+                        Under his direction, the practice has established a reputation for diligent case analysis, meticulous trial preparation, and assertive advocacy across Road Accident Fund claims, Civil Litigation, Criminal Defense, and Medical Negligence matters.
+                    </p>
+                </div>
             </div>
         </section>
 
@@ -461,6 +510,10 @@
                         <div class="info-item">
                             <h4>Address</h4>
                             <p>245 Basden Avenue, Die Hoewes, Centurion, 0163</p>
+                        </div>
+                        <div class="info-item">
+                            <h4>Director</h4>
+                            <p>Terry Mfanafuthi Ntwanano Nkuna</p>
                         </div>
                         <div class="info-item">
                             <h4>Phone</h4>
@@ -564,7 +617,7 @@
     </main>
 
     <footer>
-        <p>&copy; TMN Nkuna Attorneys. All Rights Reserved.</p>
+        <p>&copy; 2026 TMN Nkuna Attorneys. Director: Terry Mfanafuthi Ntwanano Nkuna. All Rights Reserved.</p>
     </footer>
 
     <!-- LOGIC SCRIPT -->
