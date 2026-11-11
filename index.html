@@ -381,25 +381,26 @@
 
                     <div class="contact-form-panel">
                         <h3>Send Us a Message</h3>
+                        <!-- Form configured to submit via AJAX background post without leaving the site -->
                         <form id="contactForm" onsubmit="processForm(event)">
                             <div class="form-group">
                                 <label>Full Name</label>
-                                <input type="text" id="clientName" required placeholder="John Doe">
+                                <input type="text" id="clientName" name="name" required placeholder="John Doe">
                             </div>
 
                             <div class="form-group">
                                 <label>Phone Number</label>
-                                <input type="tel" id="clientPhone" required placeholder="076 000 0000">
+                                <input type="tel" id="clientPhone" name="phone" required placeholder="076 000 0000">
                             </div>
 
                             <div class="form-group">
                                 <label>Consultation Date</label>
-                                <input type="date" id="clientDate" required>
+                                <input type="date" id="clientDate" name="date" required>
                             </div>
 
                             <div class="form-group">
                                 <label>Matter Type</label>
-                                <select id="clientService" required>
+                                <select id="clientService" name="service" required>
                                     <option value="">-- Select Service --</option>
                                     <option value="Road Accident Fund">Road Accident Fund</option>
                                     <option value="Medical Negligence">Medical Negligence</option>
@@ -412,10 +413,10 @@
 
                             <div class="form-group">
                                 <label>Case Details</label>
-                                <textarea id="clientMsg" rows="4" required placeholder="Describe your case..."></textarea>
+                                <textarea id="clientMsg" name="message" rows="4" required placeholder="Describe your case..."></textarea>
                             </div>
 
-                            <button type="submit" class="cta-btn" style="width:100%;">Send Message</button>
+                            <button type="submit" id="submitBtn" class="cta-btn" style="width:100%;">Send Message</button>
                             <div id="statusBox"></div>
                         </form>
                     </div>
@@ -428,26 +429,22 @@
         <p>&copy; TMN Nkuna Attorneys. All Rights Reserved.</p>
     </footer>
 
-    <!-- INLINE JAVASCRIPT DIRECT ROUTER -->
+    <!-- BACKGROUND AJAX SUBMISSION LOGIC -->
     <script>
         function switchTab(tabId) {
-            // Hide all page sections
             var pages = document.querySelectorAll('.page-section');
             for (var i = 0; i < pages.length; i++) {
                 pages[i].classList.remove('active');
             }
 
-            // Remove active class from buttons
             var buttons = document.querySelectorAll('.nav-links button');
             for (var j = 0; j < buttons.length; j++) {
                 buttons[j].classList.remove('active');
             }
 
-            // Activate target page and button
             document.getElementById('page-' + tabId).classList.add('active');
             document.getElementById('btn-' + tabId).classList.add('active');
 
-            // Close mobile menu if open
             document.getElementById('navMenu').classList.remove('show');
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
@@ -456,28 +453,54 @@
             document.getElementById('navMenu').classList.toggle('show');
         }
 
-        function processForm(event) {
+        async function processForm(event) {
             event.preventDefault();
-            
-            var name = document.getElementById('clientName').value;
-            var phone = document.getElementById('clientPhone').value;
-            var date = document.getElementById('clientDate').value;
-            var service = document.getElementById('clientService').value;
-            var message = document.getElementById('clientMsg').value;
 
+            var submitBtn = document.getElementById('submitBtn');
             var statusBox = document.getElementById('statusBox');
-            statusBox.style.display = 'block';
-            statusBox.style.background = '#D1E7DD';
-            statusBox.style.color = '#0F5132';
-            statusBox.innerHTML = '✓ Message prepared! Opening your mail app to finalize delivery to vutomikeithnkuna@gmail.com...';
 
-            var mailtoUrl = "mailto:vutomikeithnkuna@gmail.com" +
-                            "?subject=" + encodeURIComponent("Consultation Request: " + service + " - " + name) +
-                            "&body=" + encodeURIComponent("Client Name: " + name + "\nPhone: " + phone + "\nPreferred Date: " + date + "\nMatter: " + service + "\n\nDetails:\n" + message);
+            submitBtn.innerText = "Sending Message...";
+            submitBtn.disabled = true;
+            statusBox.style.display = "none";
 
-            setTimeout(function() {
-                window.location.href = mailtoUrl;
-            }, 800);
+            var formData = {
+                name: document.getElementById('clientName').value,
+                phone: document.getElementById('clientPhone').value,
+                date: document.getElementById('clientDate').value,
+                service: document.getElementById('clientService').value,
+                message: document.getElementById('clientMsg').value,
+                _to: "vutomikeithnkuna@gmail.com"
+            };
+
+            try {
+                // Posts the form data cleanly in the background to Formspree service route
+                var response = await fetch("https://formspree.io/f/xlgppvqa", {
+                    method: "POST",
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(formData)
+                });
+
+                statusBox.style.display = 'block';
+                if (response.ok) {
+                    statusBox.style.background = '#D1E7DD';
+                    statusBox.style.color = '#0F5132';
+                    statusBox.innerHTML = '✓ Success! Your message has been sent to vutomikeithnkuna@gmail.com.';
+                    document.getElementById('contactForm').reset();
+                } else {
+                    throw new Error("Failed to send.");
+                }
+            } catch (error) {
+                statusBox.style.display = 'block';
+                statusBox.style.background = '#F8D7DA';
+                statusBox.style.color = '#842029';
+                statusBox.innerHTML = '✕ Note: To use background delivery without mail redirection, please activate your free endpoint at formspree.io using vutomikeithnkuna@gmail.com.';
+            } finally {
+                submitBtn.innerText = "Send Message";
+                submitBtn.disabled = false;
+            }
         }
     </script>
 </body>
